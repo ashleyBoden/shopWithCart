@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'projectFont';
+    src: url('./assets/fonts/RedHatText-VariableFont_wght.ttf') format('truetype');
+}
+
+body {
+    font-family: 'projectFont', sans-serif;
+    background-color: #f5f5f5;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    width: 60%;
+    margin: 50px 100px;
+    padding: 20px;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.add-to-cart-button {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    color: grey;
+    border: 1px solid grey;
+    padding: 10px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    width: 33%;
+    height: 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: 1.1em;
+    color: #ff6f61;
+}
+
+.product-text-wrapper {
+    line-height: 0.25;
+}
+
+.decrease, .increase {
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid white;
+    color: white;
+}
+
+.decrease {
+    justify-content: center;
+}
+
