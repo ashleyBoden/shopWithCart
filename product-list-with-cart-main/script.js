@@ -1,5 +1,64 @@
 let cart = [];
 
+function rendermodal() {
+    const modal = document.querySelector('.modal');
+    modal.style.display = 'flex';
+
+    const modalItemsContainer = modal.querySelector('.modal-items');
+    const modalTotal = modal.querySelector('.modal-total');
+
+    cart.forEach(item => {
+        const modalItem = document.createElement('div');
+        modalItem.classList.add('modal-item');
+
+        const itemName = document.createElement('p');
+        itemName.textContent = item.name;
+        itemName.classList.add('modal-item-name');
+
+        const itemQuantity = document.createElement('p');
+        itemQuantity.textContent = `${item.quantity}x`;
+        itemQuantity.classList.add('modal-item-quantity');
+
+        const itemPrice = document.createElement('p');
+        itemPrice.textContent = `@$${item.price.toFixed(2)}`;
+        itemPrice.classList.add('modal-item-price');
+
+        const itemImage = document.createElement('img');
+        itemImage.src = item.image.src;
+        itemImage.classList.add('modal-item-image');
+
+        const itemDetails = document.createElement('div');
+        itemDetails.classList.add('modal-item-details');
+        itemDetails.appendChild(itemQuantity);
+        itemDetails.appendChild(itemPrice);
+
+        const itemInfo = document.createElement('div');
+        itemInfo.classList.add('modal-item-info');
+        itemInfo.appendChild(itemName);
+        itemInfo.appendChild(itemDetails);
+
+        modalItem.appendChild(itemImage);
+        modalItem.appendChild(itemInfo);        
+
+        modalItemsContainer.appendChild(modalItem);
+
+        const modalTotalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+        modalTotal.textContent = `$${modalTotalAmount}`;
+
+        });
+
+        
+
+        const startNewOrderButton = modal.querySelector('.start-new-order-button');
+        startNewOrderButton.addEventListener('click', () => {
+            cart = [];
+            modal.style.display = 'none';
+            renderCart();
+        });
+
+
+    }
+
 function renderCart() {
 
     const cartContainer = document.querySelector('.cart');
@@ -42,8 +101,17 @@ function renderCart() {
         removeButton.classList.add('remove-button');
 
         removeButton.addEventListener('click', () => {
+            const removed = cart.find(cartItem => cartItem.name === item.name);
+            removed.button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg" alt="Add to Cart"> Add to Cart`;
+            removed.button.style.backgroundColor = '';
+            removed.image.style.border = '';
+            removed.image.style.transform = '';
+            removed.button.style.color = '';
+            removed.reattachListeners();
+
             cart = cart.filter(cartItem => cartItem.name !== item.name);
             renderCart();
+            attachAddToCartListeners();
         });
 
         
@@ -81,7 +149,7 @@ function renderCart() {
     carbonNeutralIcon.classList.add('carbon-neutral-icon');
 
     const carbonNeutralText = document.createElement('p');
-    carbonNeutralText.textContent = 'This is a carbon-neutral delivery.';
+    carbonNeutralText.innerHTML = 'This is a <b>carbon-neutral</b> delivery.';
     carbonNeutralText.classList.add('carbon-neutral-text');
 
     const carbonNeutralWrapper = document.createElement('div');
@@ -94,6 +162,10 @@ function renderCart() {
     const confirmOrderButton = document.createElement('button');
     confirmOrderButton.textContent = 'Confirm Order';
     confirmOrderButton.classList.add('confirm-order-button');
+
+    confirmOrderButton.addEventListener('click', () => {
+        rendermodal();
+    });
 
     cartContainer.appendChild(confirmOrderButton);
 }
@@ -128,7 +200,10 @@ fetch('data.json')
                     cart.push({
                         name: product.name,
                         price: product.price,
-                        quantity: 1
+                        quantity: 1,
+                        button: addToCartButton,
+                        image: productImage,
+                        reattachListeners: attachAddToCartListeners
                     });
 
                     renderCart();
@@ -138,9 +213,9 @@ fetch('data.json')
                     addToCartButton.style.backgroundColor = '#D87D4A';
                     addToCartButton.style.color = '#FFFFFF';
                     addToCartButton.style.justifyContent = 'space-between';
-                    productImage.style.border = '2px solid #D87D4A';
-                    productImage.style.transform = 'scale(0.95)';
-                    productImage.style.transition = 'transform 0.3s ease, border 0.3s ease';
+                    productImage.style.border = '3px solid #D87D4A';
+                    imageWrapper.style.transform = 'scale(0.95)';
+                    imageWrapper.style.transition = 'transform 0.3s ease, border 0.3s ease';
                 
                     const decreaseButton = addToCartButton.querySelector('.decrease');
                     const increaseButton = addToCartButton.querySelector('.increase');
