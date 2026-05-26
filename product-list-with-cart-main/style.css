@@ -30,7 +30,7 @@ body {
     color: grey;
     border: 1px solid grey;
     padding: 10px 30px;
-    border-radius: 15px;
+    border-radius: 25px;
     cursor: pointer;
     width: 33%;
     height: 40px;
@@ -62,14 +62,142 @@ body {
 
 .decrease, .increase {
     background-color: transparent;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     border: 1px solid white;
     color: white;
-}
-
-.decrease {
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
+.decrease {
+    position: absolute;
+    left: 10px;
+}
+
+.increase {
+    position: absolute;
+    right: 10px;
+}
+
+.quantity {
+    font-size: 1em;
+    color: white;
+    margin: 0 auto;
+}
+
+.title {
+    text-align: left;
+    margin: 50px 120px;
+    font-size: 5em;
+}
+
+.cart {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 50px 100px;
+    border-radius: 10px;
+    display: none;
+}
+
+.cart-item {
+    position: relative;
+}
+
+.cart-item-details {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: 30%;
+}
+
+.cart-item-quantity,
+.cart-item-price,
+.cart-item-total {
+    margin: 0 0 5px 0;
+}
+
+.cart-item-quantity {
+    font-size: 1em;
+    color: #ff6f61;
+}
+
+.cart-item-price {
+    font-size: 0.9em;
+    color: grey;
+}
+.cart-item-total {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.cart-total-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.cart-total-amount {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.carbon-neutral-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    background-color: #e0e0e0a8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.carbon-neutral-wrapper img {
+    width: 25px;
+    height: 25px;
+}
+
+.confirm-order-button {
+    background-color: #D87D4A;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2em;
+    margin-top: auto;
+    height: 50px;
+}
+
+hr {
+    opacity: 0.2;
+}
+
+.remove-button {
+    background-color: transparent;
+    border: 1px solid grey;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    Justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
