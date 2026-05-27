@@ -5,7 +5,7 @@ function rendermodal() {
     modal.style.display = 'flex';
 
     const modalItemsContainer = modal.querySelector('.modal-items');
-    const modalTotal = modal.querySelector('.modal-total');
+    const modalContent = modal.querySelector('.modal-content');
 
     cart.forEach(item => {
         const modalItem = document.createElement('div');
@@ -38,18 +38,33 @@ function rendermodal() {
         itemInfo.appendChild(itemDetails);
 
         modalItem.appendChild(itemImage);
-        modalItem.appendChild(itemInfo);        
+        modalItem.appendChild(itemInfo);
+        
+        const divider = document.createElement('hr');
+        divider.classList.add('modal-divider');
 
         modalItemsContainer.appendChild(modalItem);
-
-        const modalTotalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-        modalTotal.textContent = `$${modalTotalAmount}`;
-
-        });
+        modalItemsContainer.appendChild(divider);
 
         
 
-        const startNewOrderButton = modal.querySelector('.start-new-order-button');
+        });
+
+        const totalWrapper = document.createElement('div');
+        totalWrapper.classList.add('modal-total-wrapper');
+
+        const totalLabel = document.createElement('p');
+        totalLabel.textContent = 'Order Total';
+
+        const totalAmount = document.createElement('p');
+        totalAmount.textContent = `$${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}`;
+        totalAmount.classList.add('modal-total-amount');
+
+        totalWrapper.appendChild(totalLabel);
+        totalWrapper.appendChild(totalAmount);
+        modalContent.insertBefore(totalWrapper, modalContent.querySelector('.close-modal'));      
+
+        const startNewOrderButton = modal.querySelector('.close-modal');
         startNewOrderButton.addEventListener('click', () => {
             cart = [];
             modal.style.display = 'none';
@@ -216,6 +231,7 @@ fetch('data.json')
                     productImage.style.border = '3px solid #D87D4A';
                     imageWrapper.style.transform = 'scale(0.95)';
                     imageWrapper.style.transition = 'transform 0.3s ease, border 0.3s ease';
+                    addToCartButton.classList.add('active');
                 
                     const decreaseButton = addToCartButton.querySelector('.decrease');
                     const increaseButton = addToCartButton.querySelector('.increase');
@@ -233,6 +249,7 @@ fetch('data.json')
                             renderCart();
                             console.log(cart);
                         } else {
+                            addToCartButton.classList.remove('active');
                             addToCartButton.innerHTML = `<img src="assets/images/icon-add-to-cart.svg" alt="Add to Cart"> Add to Cart`;
                             addToCartButton.style.backgroundColor = '';
                             addToCartButton.style.color = '';
